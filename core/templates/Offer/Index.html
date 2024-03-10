@@ -1,0 +1,78 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="container mt-3">
+    <h5>Offer</h5>
+    <div class="table-responsive" style="margin-bottom: 5px;">
+    <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Role</th>
+                    <th>Company Name</th>
+                    <th>Location</th>
+                    <th>Basic Salary</th>
+                    <th>Start Date</th>
+                    <th style="width: 50px;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for offer in offers %}
+                <tr>
+                    <td>{{offer.role}}</td>
+                    <td>{{offer.company_name}}</td>
+                    <td>{{offer.location}}</td>
+                    <td>{{offer.basic_salary}}</td>
+                    <td>{{offer.start_date}}</td>
+                    <td class="text-center">
+                        <div style="display: flex;">
+                            <button type="button" class="btn" data-bs-toggle="modal" id="delete-btn" onclick="setId(`{{ offer.id }}`)" data-bs-target="#exampleModal">
+                                <i class="fas fa-trash-alt text-danger me-2"></i>
+                            </button>
+                            <button type="button" class="btn" 
+                                onclick="location.href=`{% url 'core:updateOffer' offer.id %}`">
+                                <i class="fas fa-edit" style="color: #0004ff;"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                
+                {% endfor %}
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Are you sure do you want to delete your
+                                    instance?</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>This action cant be undone</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger" id="confirm-delete-btn" onclick="location.href=`{% url 'core:deleteOffer' id=0 %}`.replace('0', Id)">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div style="position: fixed; right: 109px; bottom: 42px;">
+    <button type="button" class="btn btn-primary btn-lg rounded-pill" onclick="location.href=`{% url 'core:createOffer' %}`">
+        <i class="fas fa-plus"></i>
+    </button>
+</div>
+<script>
+    var Id
+    function setId(id) {
+        Id = id
+    } 
+</script>
+
+{% endblock content %}

@@ -39,7 +39,6 @@ class Whishlist(models.Model):
             created_by=self.created_by
         )
         applied.save()
-        self.delete()
         return applied
     
 
@@ -54,6 +53,7 @@ class Applied(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     move_to_rejected = models.BooleanField(default=False)
+    move_to_interview = models.BooleanField(default=False)
 
     def moveToRejected(self):
         self.move_to_rejected = True
@@ -67,8 +67,22 @@ class Applied(models.Model):
             created_by=self.created_by
         )
         rejected.save()
-        self.delete()
+
         return rejected
+    def moveToInterview(self):
+        self.move_to_interview = True
+        self.save()
+
+        interview = Interview(
+            role=self.role,
+            company_name=self.company_name,
+            location=self.location,
+            basic_salary=self.basic_salary,
+            created_by=self.created_by
+        )
+        interview.save()
+
+        return interview
 
     class Meta:
         ordering = ['-created_at']
@@ -82,7 +96,7 @@ class Interview(models.Model):
     company_name = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
     basic_salary = models.DecimalField(max_digits=10, decimal_places=2)
-    interview_date = models.DateField()
+    interview_date = models.DateField(null=True, blank=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -101,7 +115,7 @@ class Interview(models.Model):
             created_by=self.created_by
         )
         rejected.save()
-        self.delete()
+
         return rejected
 
     def moveToOffer(self):
@@ -116,7 +130,7 @@ class Interview(models.Model):
             created_by=self.created_by
         )
         offer.save()
-        self.delete()
+
         return offer
 
 
