@@ -5,7 +5,13 @@ from .forms import WhishlistForm,AppliedForm,InterviewForm,OfferForm,RejectedFor
 from django.contrib.auth.models import User
 
 def getDashboard(request):
-    return render(request, 'Dashboard.html')
+    whishlist = Whishlist.objects.filter(created_by=request.user)
+    applied = Applied.objects.filter(created_by=request.user)
+    interview = Interview.objects.filter(created_by=request.user)
+    offer = Offer.objects.filter(created_by=request.user)
+    rejected = Rejected.objects.filter(created_by=request.user)
+    return render(request, 'Dashboard.html',{'whishlist':whishlist,'applied':applied,'interview':interview,'offer':offer,'rejected':rejected})
+
 
 # Create your views here.
 

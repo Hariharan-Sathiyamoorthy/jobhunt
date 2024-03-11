@@ -1,117 +1,73 @@
 {% extends 'main.html' %}
 
 {% block content %}
+<style>
+    .card-body {
+        max-height: 20em;
+        overflow-y: auto;
+    }
+</style>
 <div class="container">
     <div class="row mt-5">
         <div class="col-md-3">
             <h4 class="text-primary"><a href="{% url 'core:whsihlist' %}">Whislist</a></h4>
-            <div class="card">
+            {% for a in whishlist%}
+            <div class="card mb-3">
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr></tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Cell 1</td>
-                                </tr>
-                                <tr>
-                                    <td>Cell 3</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <h5 class="card-title">{{a.role}}</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{a.company_name}}</h6>
+                    <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="card-link">Card link</a>
+                  <a href="#" class="card-link">Another link</a> -->
                 </div>
             </div>
+            {% endfor %}
+
         </div>
         <div class="col-md-3">
             <h4 class="text-primary"><a href="{% url 'core:applied' %}">Applied</a></h4>
-            <div class="card">
+            {% for a in applied%}
+            <div class="card mb-3">
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr></tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Cell 1</td>
-                                </tr>
-                                <tr>
-                                    <td>Cell 3</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <h5 class="card-title">{{a.role}}</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{a.company_name}}</h6>
                 </div>
             </div>
+            {% endfor %}
         </div>
         <div class="col-md-3">
             <h4 class="text-primary"><a href="{% url 'core:interview' %}">Interview</a></h4>
-            <div class="card">
+            {% for a in interview %}
+            <div class="card mb-3">
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr></tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Cell 1</td>
-                                </tr>
-                                <tr>
-                                    <td>Cell 3</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <h5 class="card-title">{{a.role}}</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{a.company_name}}</h6>
                 </div>
             </div>
+            {% endfor %}
         </div>
         <div class="col-md-3">
             <h4 class="text-primary"><a href="{% url 'core:offer' %}">Offer</a></h4>
-            <div class="card">
+            {% for a in offer %}
+            <div class="card mb-3">
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr></tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Cell 1</td>
-                                </tr>
-                                <tr>
-                                    <td>Cell 3</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <h5 class="card-title">{{a.role}}</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{a.company_name}}</h6>
                 </div>
             </div>
+            {% endfor %}
         </div>
         <div class="col-md-3 mt-3">
             <h4 class="text-primary"><a href="{% url 'core:rejected' %}">Rejected</a></h4>
-            <div class="card">
+            {% for a in rejected %}
+            <div class="card mb-3">
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr></tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Cell 1</td>
-                                </tr>
-                                <tr>
-                                    <td>Cell 3</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <h5 class="card-title">{{a.role}}</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{a.company_name}}</h6>
                 </div>
             </div>
+            {% endfor %}
+
         </div>
     </div>
 </div>
