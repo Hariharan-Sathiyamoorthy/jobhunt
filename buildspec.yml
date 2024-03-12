@@ -1,0 +1,21 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+  build:
+    commands:
+      - pip install --upgrade pip
+      - pip install -r requirements.txt pylint
+      - echo "Build started on `date`"
+      - echo "Compiling the code"
+  post_build:
+    commands:
+      - python --version
+      - pylint $CODEBUILD_SRC_DIR/*.py
+      - pylint $CODEBUILD_SRC_DIR/jobhunt/*.py
+artifacts:
+  files:
+    - '**/*'
+  name: jobhunt
+
