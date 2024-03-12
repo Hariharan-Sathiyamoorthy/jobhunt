@@ -6,7 +6,8 @@ phases:
   build:
     commands:
       - pip install --upgrade pip
-      - pip install -r requirements.txt pylint
+      - pip install -r requirements.txt 
+      - pip install pylint
       - echo "Build started on `date`"
       - echo "Compiling the code"
   post_build:
