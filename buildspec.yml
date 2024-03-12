@@ -10,6 +10,7 @@ phases:
       - pip install pylint
       - echo "Build started on `date`"
       - echo "Compiling the code"
+      - echo `$CODEBUILD_SRC_DIR`
   post_build:
     commands:
       - python --version
