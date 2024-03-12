@@ -2,88 +2,183 @@
 
 {% block content %}
 <style>
+    .card {
+        cursor: pointer;  
+    }
+    .dum a {
+        text-decoration: none !important; 
+        color: inherit;  
+    }
+    .card {
+        height: 100px;  /* Set the height of the card */
+    }
     .card-body {
         max-height: 20em;
         overflow-y: auto;
+    }
+    body {
+        background-color: rgb(236, 234, 231);
     }
 </style>
 <div class="container">
     <div class="row mt-5">
         <div class="col-md-3">
             <h4 class="text-primary"><a href="{% url 'core:whsihlist' %}">Whislist</a></h4>
+            {% if whishlist_count > 0 %}
             {% for a in whishlist%}
+            <div class="dum">
+                <a href="{% url 'core:whislistDetails' a.id %}">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{a.role}}</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">{{a.company_name}}</h6>
+                            <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                          <a href="#" class="card-link">Card link</a>
+                          <a href="#" class="card-link">Another link</a> -->
+                        </div>
+                    </div>
+                    </a>
+            </div>
+            
+            {% endfor %}
+            {% else %}
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">{{a.role}}</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">{{a.company_name}}</h6>
-                    <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="card-link">Card link</a>
-                  <a href="#" class="card-link">Another link</a> -->
+                    <h5 class="card-title text-center"><i class="fas fa-heart"></i></h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">No Jobs on your wishlist yet</h6>
                 </div>
             </div>
-            {% endfor %}
+            {% endif %}
 
         </div>
         <div class="col-md-3">
             <h4 class="text-primary"><a href="{% url 'core:applied' %}">Applied</a></h4>
+            {% if applied_count > 0 %}
             {% for a in applied%}
+            <div class="dum">
+                <a href="{% url 'core:appliedDetails' a.id %}">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{a.role}}</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">{{a.company_name}}</h6>
+                        </div>
+                    </div>
+                    </a>
+            </div>
+
+            
+            {% endfor %}
+            {% else %}
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">{{a.role}}</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">{{a.company_name}}</h6>
+                    <h5 class="card-title text-center"><i class="fas fa-clipboard-check"></i></h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">No Jobs on your applied list yet</h6>
                 </div>
-            </div>
-            {% endfor %}
+            </div>  
+            {% endif %}
         </div>
         <div class="col-md-3">
             <h4 class="text-primary"><a href="{% url 'core:interview' %}">Interview</a></h4>
+            {% if interview_count > 0 %}
             {% for a in interview %}
+            <div class="dum">
+                <a href="{% url 'core:interviewDetails' a.id %}">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{a.role}}</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">{{a.company_name}}</h6>
+                        </div>
+                    </div>
+                    </a>
+            </div>
+            
+            {% endfor %}
+            {% else %}
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">{{a.role}}</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">{{a.company_name}}</h6>
+                    <h5 class="card-title text-center"><i class="fas fa-comments"></i></h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">No Jobs on your interview list yet</h6>
                 </div>
             </div>
-            {% endfor %}
+            {% endif %}
         </div>
         <div class="col-md-3">
             <h4 class="text-primary"><a href="{% url 'core:offer' %}">Offer</a></h4>
+            {% if offer_count > 0 %}
             {% for a in offer %}
+            <div class="dum">
+                <a href="{% url 'core:offerDetails' a.id %}">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{a.role}}</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">{{a.company_name}}</h6>
+                        </div>
+                    </div>
+                    </a>
+            </div>
+            
+            {% endfor %}
+            {% else %}
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">{{a.role}}</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">{{a.company_name}}</h6>
-                </div>
+                    <h5 class="card-title text-center"><i class="fas fa-handshake"></i></h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">No Jobs on your offer list yet</h6>
+                </div> 
             </div>
-            {% endfor %}
+            {% endif %}
         </div>
         <div class="col-md-3 mt-3">
             <h4 class="text-primary"><a href="{% url 'core:rejected' %}">Rejected</a></h4>
+            {% if rejected_count > 0 %}
             {% for a in rejected %}
+            <div class="dum">
+                <a href="{% url 'core:rejectedDetails' a.id %}">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{a.role}}</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">{{a.company_name}}</h6>
+                        </div>
+                    </div>
+                    </a>
+            </div>
+            
+            {% endfor %}
+            {% else %}
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">{{a.role}}</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">{{a.company_name}}</h6>
+                    <h5 class="card-title text-center"><i class="fas fa-times"></i></h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">No Jobs on your rejected list yet</h6>
                 </div>
             </div>
-            {% endfor %}
+            {% endif %}
 
         </div>
     </div>
 </div>
 <div class="container mt-4">
+    <h4 class="text-primary">Analytics</h4>
     <div class="row">
+        {% if whishlist_count > 0 or applied_count > 0 or interview_count > 0 or offer_count > 0 or rejected_count > 0 %}
         <div class="col-md-6">
             <div><canvas
-                    data-bss-chart="{&quot;type&quot;:&quot;doughnut&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;Whistlist&quot;,&quot;Applied&quot;,&quot;Interview&quot;,&quot;Offer&quot;,&quot;Rejected&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;Jobs&quot;,&quot;backgroundColor&quot;:[&quot;rgb(61,138,182)&quot;,&quot;rgb(61,138,182)&quot;,&quot;rgb(61,138,182)&quot;,&quot;rgb(61,138,182)&quot;,&quot;rgb(61,138,182)&quot;],&quot;borderColor&quot;:[&quot;#ffffff&quot;,&quot;#ffffff&quot;,&quot;#ffffff&quot;,&quot;#ffffff&quot;,&quot;#ffffff&quot;],&quot;data&quot;:[&quot;45&quot;,&quot;15&quot;,&quot;10&quot;,&quot;10&quot;,&quot;10&quot;]}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:true,&quot;legend&quot;:{&quot;display&quot;:false,&quot;labels&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;title&quot;:{&quot;fontStyle&quot;:&quot;bold&quot;,&quot;text&quot;:&quot;Jobs Overview&quot;,&quot;display&quot;:true,&quot;position&quot;:&quot;top&quot;,&quot;fontSize&quot;:18}}}"></canvas>
+                    data-bss-chart="{&quot;type&quot;:&quot;doughnut&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;Whistlist&quot;,&quot;Applied&quot;,&quot;Interview&quot;,&quot;Offer&quot;,&quot;Rejected&quot;],&quot;datasets&quot;:[
+                        {&quot;label&quot;:&quot;Jobs&quot;,&quot;backgroundColor&quot;:[&quot;rgb(61,138,182)&quot;,&quot;rgb(61,138,182)&quot;,&quot;rgb(61,138,182)&quot;,&quot;rgb(61,138,182)&quot;,&quot;rgb(61,138,182)&quot;],&quot;borderColor&quot;:[&quot;#ffffff&quot;,&quot;#ffffff&quot;,&quot;#ffffff&quot;,&quot;#ffffff&quot;,&quot;#ffffff&quot;],&quot;data&quot;:
+                            {{labels_json|safe}}}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:true,&quot;legend&quot;:{&quot;display&quot;:false,&quot;labels&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;title&quot;:{&quot;fontStyle&quot;:&quot;bold&quot;,&quot;text&quot;:&quot;Jobs Overview&quot;,&quot;display&quot;:true,&quot;position&quot;:&quot;top&quot;,&quot;fontSize&quot;:18}}}"></canvas>
             </div>
         </div>
         <div class="col-md-6">
             <div><canvas
-                    data-bss-chart="{&quot;type&quot;:&quot;bar&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;January&quot;,&quot;February&quot;,&quot;March&quot;,&quot;April&quot;,&quot;May&quot;,&quot;June&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;Applied&quot;,&quot;backgroundColor&quot;:&quot;#3d8ab6&quot;,&quot;borderColor&quot;:&quot;#ffffff&quot;,&quot;data&quot;:[&quot;5&quot;]},{&quot;label&quot;:&quot;Rejected&quot;,&quot;backgroundColor&quot;:&quot;#ff4a4c&quot;,&quot;borderColor&quot;:&quot;rgba(251,242,242,0.1)&quot;,&quot;data&quot;:[&quot;2&quot;],&quot;stack&quot;:&quot;1&quot;}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:true,&quot;legend&quot;:{&quot;display&quot;:false,&quot;labels&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;title&quot;:{&quot;fontStyle&quot;:&quot;bold&quot;,&quot;display&quot;:true,&quot;text&quot;:&quot;Applied vs Rejected&quot;,&quot;fontSize&quot;:18},&quot;scales&quot;:{&quot;xAxes&quot;:[{&quot;stacked&quot;:true,&quot;ticks&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}}],&quot;yAxes&quot;:[{&quot;stacked&quot;:true,&quot;ticks&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}}]}}}"></canvas>
+                    data-bss-chart="{&quot;type&quot;:&quot;bar&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;January&quot;,&quot;February&quot;,&quot;March&quot;,&quot;April&quot;,&quot;May&quot;,&quot;June&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;Applied&quot;,&quot;backgroundColor&quot;:&quot;#3d8ab6&quot;,&quot;borderColor&quot;:&quot;#ffffff&quot;,&quot;data&quot;:{{count_applied_month|safe}}},{&quot;label&quot;:&quot;Rejected&quot;,&quot;backgroundColor&quot;:&quot;#ff4a4c&quot;,&quot;borderColor&quot;:&quot;rgba(251,242,242,0.1)&quot;,&quot;data&quot;:{{count_rejected_month|safe}},&quot;stack&quot;:&quot;1&quot;}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:true,&quot;legend&quot;:{&quot;display&quot;:false,&quot;labels&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;title&quot;:{&quot;fontStyle&quot;:&quot;bold&quot;,&quot;display&quot;:true,&quot;text&quot;:&quot;Applied vs Rejected&quot;,&quot;fontSize&quot;:18},&quot;scales&quot;:{&quot;xAxes&quot;:[{&quot;stacked&quot;:true,&quot;ticks&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}}],&quot;yAxes&quot;:[{&quot;stacked&quot;:true,&quot;ticks&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}}]}}}"></canvas>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-md-12">
+            <div class="alert alert-warning" role="alert">
+                Add Jobs to see the Analytics
             </div>
         </div>
     </div>
+    {% endif %}
 </div>
 
 {% endblock %}

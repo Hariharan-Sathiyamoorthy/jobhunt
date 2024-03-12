@@ -10,7 +10,7 @@ class WhishlistForm(forms.ModelForm):
     location = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',"placeholder": "Location"}), required=True)
     basic_salary = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control',"placeholder": "Basic Salary"}), required=True)
     closing_date = forms.DateField(widget=forms.DateInput(attrs={'type':'date','class': 'form-control',"placeholder": "Closing Date"}), required=True)
-    move_to_applied = forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': 'form-check-input',"placeholder": "Move To Applied"}))
+    move_to_applied = forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': 'form-check-input',"placeholder": "Move To Applied"}),required=False)
 
     def __init__(self, *args, **kwargs):
         super(WhishlistForm, self).__init__(*args, **kwargs)

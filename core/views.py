@@ -3,18 +3,54 @@ from django.http import HttpResponse
 from .models import Whishlist,Applied,Interview,Offer,Rejected
 from .forms import WhishlistForm,AppliedForm,InterviewForm,OfferForm,RejectedForm
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.core.serializers.json import DjangoJSONEncoder
+import json
+from django.db import models
+import calendar
 
+@login_required(login_url='/users/login')
 def getDashboard(request):
     whishlist = Whishlist.objects.filter(created_by=request.user)
     applied = Applied.objects.filter(created_by=request.user)
     interview = Interview.objects.filter(created_by=request.user)
     offer = Offer.objects.filter(created_by=request.user)
     rejected = Rejected.objects.filter(created_by=request.user)
-    return render(request, 'Dashboard.html',{'whishlist':whishlist,'applied':applied,'interview':interview,'offer':offer,'rejected':rejected})
+    # get count of all models
+    whishlist_count = whishlist.count()
+    applied_count = applied.count()
+    interview_count = interview.count()
+    offer_count = offer.count()
+    rejected_count = rejected.count()
+    labels = [whishlist_count,applied_count,interview_count,offer_count,rejected_count]
+    labels_json = json.dumps(labels, cls=DjangoJSONEncoder)
+    # get month data and count for Applied and Rejected models
+    applied_month = applied.values('created_at__month').annotate(count=models.Count('created_at__month'))
+    rejected_month = rejected.values('created_at__month').annotate(count=models.Count('created_at__month'))
+    count_applied_month = json.dumps([0,0]+[x['count'] for x in applied_month], cls=DjangoJSONEncoder)
+    count_rejected_month = json.dumps([0,0]+[x['count'] for x in rejected_month], cls=DjangoJSONEncoder)
+
+    context = {
+        'whishlist':whishlist.order_by('-created_at')[:3],
+        'applied':applied.order_by('-created_at')[:3],
+        'interview':interview.order_by('-created_at')[:3],
+        'offer':offer.order_by('-created_at')[:3],
+        'rejected':rejected.order_by('-created_at')[:3],
+        "labels_json":labels_json,
+        "count_applied_month":count_applied_month,
+        "count_rejected_month":count_rejected_month,
+        'whishlist_count':whishlist_count,
+        'applied_count':applied_count,
+        'interview_count':interview_count,
+        'offer_count':offer_count,
+        'rejected_count':rejected_count
+    }
+    
+    return render(request, 'Dashboard.html', context)
 
 
 # Create your views here.
-
+@login_required(login_url='/users/login')
 def getIndexes(request,page):
     print(type(page))
     print(page == 'whishlist')
@@ -35,7 +71,8 @@ def getIndexes(request,page):
         return render(request, 'Rejected/Index.html', {'rejecteds':rejecteds})
     else:
         return HttpResponse('Page not found', status=404)
-
+    
+@login_required(login_url='/users/login')
 def createJobs(request,page):
     user = User.objects.get(id=request.user.id)
     if page == 'whishlist':
@@ -51,7 +88,7 @@ def createJobs(request,page):
                 print(form.errors)
                 for field in form.errors:
                     form[field].field.widget.attrs['class'] += ' is-invalid'
-        return render(request, 'Whislist/Create.html', {'form':form, 'title':'Create Whishlist','button':'Create'})
+        return render(request, 'Create.html', {'form':form, 'title':'Create Whishlist','button':'Create'})
     elif page == 'applied':
         form = AppliedForm()
         if request.method == 'POST':
@@ -65,7 +102,7 @@ def createJobs(request,page):
                 print(form.errors)
                 for field in form.errors:
                     form[field].field.widget.attrs['class'] += ' is-invalid'
-        return render(request, 'Applied/Create.html', {'form':form, 'title':'Create Applied','button':'Create'})
+        return render(request, 'Create.html', {'form':form, 'title':'Create Applied','button':'Create'})
     elif page == 'interview':
         form = InterviewForm()
         if request.method == 'POST':
@@ -79,7 +116,7 @@ def createJobs(request,page):
                 print(form.errors)
                 for field in form.errors:
                     form[field].field.widget.attrs['class'] += ' is-invalid'
-        return render(request, 'Interview/Create.html', {'form':form, 'title':'Create Interview','button':'Create'})
+        return render(request, 'Create.html', {'form':form, 'title':'Create Interview','button':'Create'})
     elif page == 'offer':
         form = OfferForm()
         if request.method == 'POST':
@@ -93,7 +130,7 @@ def createJobs(request,page):
                 print(form.errors)
                 for field in form.errors:
                     form[field].field.widget.attrs['class'] += ' is-invalid'
-        return render(request, 'Offer/Create.html', {'form':form, 'title':'Create Offer','button':'Create'})
+        return render(request, 'Create.html', {'form':form, 'title':'Create Offer','button':'Create'})
     elif page == 'rejected':
         form = RejectedForm()
         if request.method == 'POST':
@@ -107,10 +144,11 @@ def createJobs(request,page):
                 print(form.errors)
                 for field in form.errors:
                     form[field].field.widget.attrs['class'] += ' is-invalid'
-        return render(request, 'Rejected/Create.html', {'form':form, 'title':'Create Rejected','button':'Create'})
+        return render(request, 'Create.html', {'form':form, 'title':'Create Rejected','button':'Create'})
     else:
         return HttpResponse('Page not found', status=404)
 
+@login_required(login_url='/users/login')
 def updateJobs(request,page,id):
     user = User.objects.get(id=request.user.id)
     if page == 'whishlist':
@@ -199,6 +237,27 @@ def updateJobs(request,page,id):
     else:
         return HttpResponse('Page not found', status=404)
 
+@login_required(login_url='/users/login')
+def viewJobItem(request,id,page):
+    if page == 'whishlist':
+        whsihlist = Whishlist.objects.get(id=id)
+        return render(request, 'View.html', {'view':whsihlist,"name":"Whishlist"})
+    elif page == 'applied':
+        applied = Applied.objects.get(id=id)
+        return render(request, 'View.html', {'view':applied,"name":"Applied"})
+    elif page == 'interview':
+        interview = Interview.objects.get(id=id)
+        return render(request, 'View.html', {'view':interview,"name":"Interview"})
+    elif page == 'offer':
+        offer = Offer.objects.get(id=id)
+        return render(request, 'View.html', {'view':offer,"name":"Offer"})
+    elif page == 'rejected':
+        rejected = Rejected.objects.get(id=id)
+        return render(request, 'View.html', {'view':rejected,"name":"Rejected"})
+    else:
+        return HttpResponse('Page not found', status=404)
+
+@login_required(login_url='/users/login')
 def deleteJobs(request,page,id):
     if page == 'whishlist':
         whsihlist = Whishlist.objects.get(id=id)

@@ -1,0 +1,41 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<style>
+    .col {
+        border-right: 1px solid #ccc;
+    }
+    .col:last-child {
+        border-right: none;
+    }
+</style>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h5>Job in {{name}}</h5>
+        </div>
+        <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
+            <div class="row">
+                <div class="col mb-4"><h5>Company Name</h5> {{view.company_name}}</div>
+                <div class="col mb-4"><h5> Role</h5>{{view.role}}</div>
+                <div class="col mb-4"><h5>Basic Salary </h5>{{view.basic_salary}}</div>
+            </div>
+            <div class="row">
+                <div class="col mb-4"><h5>Location </h5>{{view.location}}GB</div>
+                <div class="col mb-4"><h5>Closing Date</h5> {{view.closing_date|default:"-"}}</div>
+                <div class="col mb-4"><h5>Created At</h5> {{view.created_at}}</div>
+            </div>
+            <div class="row">
+                <div class="col mb-4"><h5>Interview Date</h5> {{view.interview_date|default:"-"}}</div>
+                <div class="col mb-4"><h5>Created by</h5> {{view.created_by}}</div>
+                <div class="col mb-4"><h5>Comments</h5>-</div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

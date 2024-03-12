@@ -24,5 +24,10 @@ urlpatterns = [
     path('deleteInterview/<int:id>/', views.deleteJobs,{'page':'interview'}, name='deleteInterview'),
     path('deleteOffer/<int:id>/', views.deleteJobs,{'page':'offer'}, name='deleteOffer'),
     path('deleteRejected/<int:id>/', views.deleteJobs,{'page':'rejected'}, name='deleteRejected'),
+    path('whislistDetsils/<int:id>/', views.viewJobItem,{'page':'whishlist'}, name='whislistDetails'),
+    path('appliedDetsils/<int:id>/', views.viewJobItem,{'page':'applied'}, name='appliedDetails'),
+    path('interviewDetsils/<int:id>/', views.viewJobItem,{'page':'interview'}, name='interviewDetails'),
+    path('offerDetsils/<int:id>/', views.viewJobItem,{'page':'offer'}, name='offerDetails'),
+    path('rejectedDetsils/<int:id>/', views.viewJobItem,{'page':'rejected'}, name='rejectedDetails'),
 
 ]
