@@ -10,9 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 from django.contrib import messages
-import os
 from django.contrib.auth import get_user_model
 
 if os.environ.get('CREATE_SUPERUSER'):
