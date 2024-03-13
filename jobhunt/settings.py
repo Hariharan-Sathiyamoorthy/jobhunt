@@ -10,15 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-import os
+
 from pathlib import Path
 from django.contrib import messages
-from django.contrib.auth import get_user_model
 
-if os.environ.get('CREATE_SUPERUSER'):
-    User = get_user_model()
-    if not User.objects.filter(username='admin').exists():
-        User.objects.create_superuser('admin', 'admin@example.com', 'password')
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
