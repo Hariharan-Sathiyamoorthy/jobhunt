@@ -1,8 +1,12 @@
+"""
+This module contains a script to create a superuser for the Django application.
+"""
 
-import os
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
 if not User.objects.filter(username='admin').exists():
     User.objects.create_superuser('admin', 'admin@example.com', 'admin osr')
+
+# Newline at the end of the file
