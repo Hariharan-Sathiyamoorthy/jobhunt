@@ -3,6 +3,11 @@ phases:
   install:
     runtime-versions:
       python: 3.11
+    commands:
+    
+      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+      - unzip sonar-scanner-cli-5.0.1.3006-linux.zip
+      - export PATH=$PATH:`pwd`/sonar-scanner-cli-5.0.1.3006-linux/bin
   build:
     commands:
       - pip install --upgrade pip
@@ -10,7 +15,7 @@ phases:
       - pip install pylint
       - echo "Build started on `date`"
       - echo "Compiling the code"
-      - echo `$CODEBUILD_SRC_DIR`
+      - sonar-scanner -Dsonar.projectKey=Hariharan-Sathiyamoorthy_jobhunt_5e225511-f8bd-423c-a007-128ddeecf2ae -Dsonar.sources=. -Dsonar.host.url=http://34.255.137.192:9000 -Dsonar.login=sqp_51f77295276f66e5e5ae5e3879cab2843933aff5
   post_build:
     commands:
       - python --version
@@ -21,4 +26,3 @@ artifacts:
   files:
     - '**/*'
   name: jobhunt
-
