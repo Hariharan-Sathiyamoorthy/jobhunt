@@ -1,4 +1,9 @@
 version: 0.2
+env:
+  secrets-manager:
+    TOKEN: prod/Devops/sonar:token
+    HOST: prod/Devops/sonar:hostUrl
+    PROJECTKEY: prod/Devops/sonar:projectKey
 phases:
   install:
     runtime-versions:
@@ -8,7 +13,7 @@ phases:
       - unzip sonar-scanner-cli-5.0.1.3006-linux.zip
   build:
     commands:
-      - ./sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner -Dsonar.projectKey=Hariharan-Sathiyamoorthy_jobhunt_5e225511-f8bd-423c-a007-128ddeecf2ae -Dsonar.sources=. -Dsonar.host.url=http://34.255.137.192:9000 -Dsonar.login=sqp_51f77295276f66e5e5ae5e3879cab2843933aff5
-      - curl http://34.255.137.192:9000/api/qualitygates/project_status?projectKey=Hariharan-Sathiyamoorthy_jobhunt_5e225511-f8bd-423c-a007-128ddeecf2ae > result.json
+      - ./sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner -Dsonar.projectKey=$PROJECTKEY -Dsonar.sources=. -Dsonar.host.url=$HOST -Dsonar.login=$TOKEN
+      - curl $HOST/api/qualitygates/project_status?projectKey=$PROJECTKEY > result.json
       - cat result.json
       - if [ $(jq -r '.projectStatus.status' result.json) = ERROR ] ; then exit 1 ;fi
