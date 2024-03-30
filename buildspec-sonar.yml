@@ -1,9 +1,9 @@
 version: 0.2
 env:
-  secrets-manager:
-    TOKEN: prod/Devops/sonar:token
-    HOST: prod/Devops/sonar:hostUrl
-    PROJECTKEY: prod/Devops/sonar:projectKey
+  variables:
+    TOKEN: "sqp_5cc96f0f85cafb1f9daffb616c1b19e4ed06c76c"
+    HOST: "http://52.213.36.86:9000"
+    PROJECTKEY: "Hariharan-Sathiyamoorthy_jobhunt_5191cfdd-ad36-4510-9f04-962d8ce1a4d1"
 phases:
   install:
     runtime-versions:
@@ -17,3 +17,4 @@ phases:
       - curl $HOST/api/qualitygates/project_status?projectKey=$PROJECTKEY > result.json
       - cat result.json
       - if [ $(jq -r '.projectStatus.status' result.json) = ERROR ] ; then exit 1 ;fi
+
