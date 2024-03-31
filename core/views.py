@@ -167,7 +167,7 @@ def updateJobs(request,page,id):
                 print(form.errors)
                 for field in form.errors:
                     form[field].field.widget.attrs['class'] += ' is-invalid'
-        return render(request, 'Whislist/Create.html', {'form':form, 'title':'Update Whishlist','button':'Update'})
+        return render(request, 'Create.html', {'form':form, 'title':'Update Whishlist','button':'Update'})
     elif page == 'applied':
         applied = Applied.objects.get(id=id)
         form = AppliedForm(instance=applied)
@@ -187,7 +187,7 @@ def updateJobs(request,page,id):
                 print(form.errors)
                 for field in form.errors:
                     form[field].field.widget.attrs['class'] += ' is-invalid'
-        return render(request, 'Applied/Create.html', {'form':form, 'title':'Update Applied','button':'Update'})
+        return render(request, 'Create.html', {'form':form, 'title':'Update Applied','button':'Update'})
     elif page == 'interview':
         interview = Interview.objects.get(id=id)
         form = InterviewForm(instance=interview)
@@ -207,7 +207,7 @@ def updateJobs(request,page,id):
                 print(form.errors)
                 for field in form.errors:
                     form[field].field.widget.attrs['class'] += ' is-invalid'
-        return render(request, 'Interview/Create.html', {'form':form, 'title':'Update Interview','button':'Update'})
+        return render(request, 'Create.html', {'form':form, 'title':'Update Interview','button':'Update'})
     elif page == 'offer':
         offer = Offer.objects.get(id=id)
         form = OfferForm(instance=offer)
@@ -220,7 +220,7 @@ def updateJobs(request,page,id):
                 print(form.errors)
                 for field in form.errors:
                     form[field].field.widget.attrs['class'] += ' is-invalid'
-        return render(request, 'Offer/Create.html', {'form':form, 'title':'Update Offer','button':'Update'})
+        return render(request, 'Create.html', {'form':form, 'title':'Update Offer','button':'Update'})
     elif page == 'rejected':
         rejected = Rejected.objects.get(id=id)
         form = RejectedForm(instance=rejected)
@@ -233,7 +233,7 @@ def updateJobs(request,page,id):
                 print(form.errors)
                 for field in form.errors:
                     form[field].field.widget.attrs['class'] += ' is-invalid'
-        return render(request, 'Rejected/Create.html', {'form':form, 'title':'Update Rejected','button':'Update'})
+        return render(request, 'Create.html', {'form':form, 'title':'Update Rejected','button':'Update'})
     else:
         return HttpResponse('Page not found', status=404)
 
