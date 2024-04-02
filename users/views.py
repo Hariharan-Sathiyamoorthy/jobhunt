@@ -5,7 +5,9 @@ from .forms import userLoginForm, userRegistrationForm
 from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
-
+"""
+Enables registered users to login and access the application
+"""
 def userLogin(request):
     page = 'login'
     form = userLoginForm()
@@ -37,6 +39,9 @@ def userLogin(request):
     context = {'page':page,"form":form}
     return render(request, "Auth/Authentication.html", context)
 
+"""
+Enables users to register themselfves and access the application
+"""
 def userRegister(request):
     form = userRegistrationForm()
     if request.method == "POST":
@@ -57,6 +62,9 @@ def userRegister(request):
     context = {"form":form}
     return render(request, "Auth/Authentication.html", context)
 
+"""
+Enables users to logout from the application
+"""
 def userLogout(request):
     logout(request)
     return redirect('/')

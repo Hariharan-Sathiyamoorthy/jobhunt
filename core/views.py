@@ -9,6 +9,10 @@ import json
 from django.db import models
 import calendar
 
+"""
+Get Dashboard data from all the tables
+login is requried to access this view
+"""
 @login_required(login_url='/users/login')
 def getDashboard(request):
     whishlist = Whishlist.objects.filter(created_by=request.user)
@@ -49,7 +53,10 @@ def getDashboard(request):
     return render(request, 'Dashboard.html', context)
 
 
-# Create your views here.
+"""
+Routes to the particular landing page of the table
+login is requried to access this view
+"""
 @login_required(login_url='/users/login')
 def getIndexes(request,page):
     print(type(page))
@@ -71,7 +78,11 @@ def getIndexes(request,page):
         return render(request, 'Rejected/Index.html', {'rejecteds':rejecteds})
     else:
         return HttpResponse('Page not found', status=404)
-    
+ 
+"""
+Create job view routes to create form for the appropriate pages
+login is requried to access this view
+"""    
 @login_required(login_url='/users/login')
 def createJobs(request,page):
     user = User.objects.get(id=request.user.id)
@@ -148,6 +159,10 @@ def createJobs(request,page):
     else:
         return HttpResponse('Page not found', status=404)
 
+"""
+Update job view routes to update form for the appropriate pages
+login is requried to access this view
+""" 
 @login_required(login_url='/users/login')
 def updateJobs(request,page,id):
     user = User.objects.get(id=request.user.id)
@@ -237,6 +252,10 @@ def updateJobs(request,page,id):
     else:
         return HttpResponse('Page not found', status=404)
 
+"""
+View job view routes to view page for the appropriate pages
+login is requried to access this view
+"""
 @login_required(login_url='/users/login')
 def viewJobItem(request,id,page):
     if page == 'whishlist':
@@ -257,6 +276,10 @@ def viewJobItem(request,id,page):
     else:
         return HttpResponse('Page not found', status=404)
 
+"""
+Delete job view routes to delete page for the appropriate pages
+login is requried to access this view
+"""
 @login_required(login_url='/users/login')
 def deleteJobs(request,page,id):
     if page == 'whishlist':
