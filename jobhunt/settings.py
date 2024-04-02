@@ -11,9 +11,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 
+import os
 from pathlib import Path
 from django.contrib import messages
-import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -143,4 +143,3 @@ STATICFILES_DIRS = [
 STATIC_URL = '/static/'
 STATIC_ROOT =  'staticfiles'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
