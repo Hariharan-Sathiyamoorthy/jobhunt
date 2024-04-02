@@ -33,7 +33,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = ['localhost',
-'x23201550labenv.eba-f854fb8j.eu-west-1.elasticbeanstalk.com',
+'x23201550-devops-prod.eba-f854fb8j.eu-west-1.elasticbeanstalk.com',
 'http://127.0.0.1:8001']
 
 
