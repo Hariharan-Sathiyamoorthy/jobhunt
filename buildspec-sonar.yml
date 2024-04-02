@@ -1,9 +1,9 @@
 version: 0.2
 env:
-  variables:
-    TOKEN: "sqp_5cc96f0f85cafb1f9daffb616c1b19e4ed06c76c"
-    HOST: "http://52.213.36.86:9000"
-    PROJECTKEY: "Hariharan-Sathiyamoorthy_jobhunt_5191cfdd-ad36-4510-9f04-962d8ce1a4d1"
+  secrets-manager:
+    TOKEN: 23201550/Devops/prod:TOKEN
+    HOST: 23201550/Devops/prod:HOST
+    PROJECTKEY: 23201550/Devops/prod:PROJECTKEY
 phases:
   install:
     runtime-versions:
