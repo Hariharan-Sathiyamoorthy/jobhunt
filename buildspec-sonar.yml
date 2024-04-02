@@ -17,5 +17,5 @@ phases:
       - sleep 5
       - curl http://18.201.85.9:9000/api/qualitygates/project_status?projectKey=$PROJECTKEY > result.json
       - cat result.json
-      - if [ -s result.json ] && if [ $(jq -r '.projectStatus.status' result.json) = ERROR ] ; then exit 1 ;fi
+      - if [ -s result.json ] && [ "$(jq -r '.projectStatus.status' result.json)" = "ERROR" ] ; then exit 1 ;fi
 
