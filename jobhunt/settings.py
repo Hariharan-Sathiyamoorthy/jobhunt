@@ -34,7 +34,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost',
 'x23201550-devops-prod.eba-f854fb8j.eu-west-1.elasticbeanstalk.com',
-'http://127.0.0.1:8001']
+'http://127.0.0.1:8001',
+'http://127.0.0.1:8000']
 
 
 # Application definition
