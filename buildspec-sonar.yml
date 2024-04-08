@@ -15,7 +15,7 @@ phases:
     commands:
       - ./sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner -Dsonar.projectKey=$PROJECTKEY -Dsonar.sources=. -Dsonar.host.url=$HOST -Dsonar.login=$TOKEN
       - sleep 5
-      - curl http://34.244.238.109:9000/api/qualitygates/project_status?projectKey=$PROJECTKEY > result.json
+      - curl http://34.245.44.13:9000/api/qualitygates/project_status?projectKey=$PROJECTKEY > result.json
       - cat result.json
       - if [ -s result.json ] && [ "$(jq -r '.projectStatus.status' result.json)" = "ERROR" ] ; then exit 1 ;fi
 
